@@ -8,9 +8,14 @@ use Illuminate\Support\Facades\DB;
 class UsuarioController extends Controller
 {
     public function funListar(){
-        $usuarios = DB::select("SELECT * from users");
+        try {
+            
+            $usuarios = DB::select("SELECT * from users");
+            return $usuarios;
+        } catch (\Throwable $th) {
+            return response()->json(["mensaje" => "Error al recuperar los datos", $th->getMessage()]);
+        }
         
-        return $usuarios;
     }
 
     public function funGuardar(Request $request){
@@ -24,14 +29,30 @@ class UsuarioController extends Controller
     }
 
     public function funMostrar($id){
+        $usuario = DB::select("SELECT * from users where id=?", [$id]);
+        if(!$usuario){
+            return response()->json(["mensaje" => "Usuario no encontrado"], 404);
+        }
         
+        return response()->json($usuario, 200);
     }
 
     public function funModificar($id, Request $request){
-        
+      
+        $nombre = $request->name;
+        $correo = $request->email;
+        $pass = $request->password?$request->password:null;
+
+        DB::update("UPDATE users SET name = ?, email =?, password=? where id=?", [$nombre, $correo, $pass, $id]);
+
+        return response()->json(["mensaje" => "Usuario actualizado"], 201);
     }
 
     public function funEliminar($id){
         
+        DB::delete("DELETE FROM users WHERE id=?", [$id]);
+
+        return response()->json(["mensaje" => "Usuario eliminado"], 200);
+
     }
 }

@@ -5,7 +5,23 @@ POST http://127.0.0.1:8000/api/usuario
 Content-Type: application/json
 
 {
-    "name": "Cristian",
-    "email": "cristian@mail.com",
-    "password": "cristian54321"
+    "name": "Pedro",
+    "email": "pedro@mail.com",
+    "password": "pedro4321"
 }
+### Mostrar Usuario
+GET http://127.0.0.1:8000/api/usuario/2
+
+### modificar usuario
+PUT http://127.0.0.1:8000/api/usuario/2
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "juan Modificado",
+    "email": "juan@mail.com",
+    "password": "juan54321"
+  }
+
+### Eliminar
+DELETE http://127.0.0.1:8000/api/usuario/5
