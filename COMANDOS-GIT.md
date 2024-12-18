@@ -17,4 +17,12 @@ git config --global user.name "Su Nombre"
 ## Subir su codigo (Proyecto laravel) al repositorio de Gihub
 ```
 git init
+git remote add origin https://github.com/cchura94/ejemplo-api-laravel.git
+```
+---
+### Comandos para subir
+```
+git add .
+git commit -m "Proyecto Base Laravel"
+git push origin master
 ```
